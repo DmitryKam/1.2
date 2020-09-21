@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import './App.css';
 import Counter from './Counter';
 import CounterSetings from './CounterSettings';
@@ -6,47 +6,55 @@ import CounterSetings from './CounterSettings';
 
 function App() {
 
-let minValue = 0;
-let maxValue = 5;
+    let [minValue, setMinValue] = useState<number>(0);
+    let [maxValue, setMaxValue] = useState<number>(5);
 
-let[minValueSet,maxValueSet] = useState()
 
-    function setValueCounter (){
+    function setMax(e: ChangeEvent<HTMLInputElement>) {
+        setMaxValue(Number(e.currentTarget.value))
+    }
+    function setMin(e: ChangeEvent<HTMLInputElement>) {
+        setMinValue(Number(e.currentTarget.value))
     }
 
-let [value, setValue] = useState(minValue);
 
-function counterValue () {
-    if(value<maxValue) {
-       return  setValue(value+1)
-    } else return value
-}
+    function setMinMaxValueFromSetting() {
+        setMinValue(minValue);
+        setMaxValue(maxValue);
+    }
 
-function reset() {
-setValue(minValue);
-}
+    let [value, setValue] = useState(minValue);
 
-function yo() {
- return(alert('yo'))
-}
+    function counterValue() {
+        if (value < maxValue) {
+            return setValue(value + 1)
+        } else return value
+    }
+
+    function reset() {
+        setValue(minValue);
+    }
+
 
     return (
-        <div className={'general'} >
+        <div className={'general'}>
             <div className={'displayBlock'}>
                 <CounterSetings
                     maxValue={maxValue}
-                    minValue = {minValue}
-                    value = {value}
-                    setyo={yo}
+                    minValue={minValue}
+                    setMinValue={setMin}
+                    setMaxValue={setMax}
+                    value={value}
+                    setMinMaxValueFromSetting={setMinMaxValueFromSetting}
                 />
             </div>
             <div className={'displayBlock'}>
                 <Counter
                     counterValue={counterValue}
-                    value = {value}
+                    value={value}
                     reset={reset}
                     maxValue={maxValue}
-                    minValue = {minValue}
+                    minValue={minValue}
                 />
             </div>
         </div>

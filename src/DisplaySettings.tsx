@@ -1,36 +1,28 @@
-import React, {ChangeEvent, useState} from 'react';
+import React from 'react';
 import './App.css';
 
 type DisplaySettingsPropsType = {
     value: number
     maxValue: number
     minValue: number
+    setMinValue: (e:any) => void
+    setMaxValue: (e:any) => void
 }
 
 
 function DisplaySettings(props: DisplaySettingsPropsType) {
 
 
-
-let [maxValueInput, maxSetValueInput] = useState<number>(props.maxValue);
-let [minValueInput, minSetValueInput] = useState<number>(props.minValue);
-
-const changeMaxInputvalue = (e:ChangeEvent<HTMLInputElement>)=>{
-    maxSetValueInput(e.currentTarget.value)
-}
-    const changeMinInputvalue = (e:ChangeEvent<HTMLInputElement>)=>{
-        minSetValueInput(e.currentTarget.value)
-    }
     return (<div>
-        <div>Set maxValue: <input type="number" name={'num'} min={0} max={1000} step={1}
-            className={'input'}
-            value={maxValueInput}
-            onChange={changeMaxInputvalue}
+        <div>Set maxValue: <input type="number"
+                                  className={'input'}
+                                  value={props.maxValue}
+                                  onChange={props.setMaxValue}
         /></div>
-        <div>Set minValue:<input type="number" name={'num'} min={0} max={1000} step={1}
-            className={'input'}
-            value={minValueInput}
-            onChange={changeMinInputvalue}
+        <div>Set minValue:<input type="number"
+                                 className={'input'}
+                                 value={props.minValue}
+                                 onChange={props.setMinValue}
 
         /></div>
     </div>)
