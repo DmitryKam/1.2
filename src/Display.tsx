@@ -4,16 +4,18 @@ import './App.css';
 type DisplayPropsType = {
     value: number
     maxValue: number
+    minValue: number
+
 }
 
 
 function Display(props:DisplayPropsType) {
 
-    const endValue = (props.value>=props.maxValue)? "displayCounterWrong":"displayCounter"
+    const endValue = (props.minValue>=props.maxValue)? "displayCounterWrong":"displayCounter"
 
 
     return(<div className={endValue}>
-        {props.value}
+        {props.minValue}
     </div>)
 }
 

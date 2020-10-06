@@ -5,22 +5,23 @@ import DisplaySettings from './DisplaySettings';
 
 type CounterSettingsPropsType = {
     setMinMaxValueFromSetting: () => void
-    value: number
-    maxValue: number
-    minValue: number
-    setMinValue: (e:any) => void
-    setMaxValue: (e:any) => void
+    startMaxValue: number
+    startMinValue: number
+    setMinValue: (set: number) => void
+    setMaxValue: (set: number) => void
 }
 
 function CounterSetings(props: CounterSettingsPropsType) {
+
+
 
     return (
         <div>
             <div className={'display'}>
                 <DisplaySettings
-                    value={props.value}
-                    maxValue={props.maxValue}
-                    minValue={props.minValue}
+                    value={props.startMinValue}
+                    maxValue={props.startMaxValue}
+                    minValue={props.startMinValue}
                     setMinValue={props.setMinValue}
                     setMaxValue={props.setMaxValue}
                 />
@@ -29,8 +30,8 @@ function CounterSetings(props: CounterSettingsPropsType) {
                 <MyButton
                     name={'set'}
                     action={props.setMinMaxValueFromSetting}
-                    value={props.value}
-                    maxValue={props.maxValue}
+                    value={props.startMinValue}
+                    maxValue={props.startMaxValue}
 
                 />
             </div>

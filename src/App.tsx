@@ -6,33 +6,37 @@ import CounterSetings from './CounterSettings';
 
 function App() {
 
-    let [minValue, setMinValue] = useState<number>(0);
-    let [maxValue, setMaxValue] = useState<number>(5);
 
 
-    function setMax(e: ChangeEvent<HTMLInputElement>) {
-        setMaxValue(Number(e.currentTarget.value))
+    const [startMinValue, setStartMinValue] = useState<number>(0);
+    const [startMaxValue, setStartMaxValue] = useState<number>(5);
+
+    let [minValue, setMinValue] = useState<number>(startMinValue);
+    let [maxValue, setMaxValue] = useState<number>(startMaxValue);
+
+
+    function setMax(setCounterMaxValue: number) {
+        setStartMaxValue(setCounterMaxValue)
     }
-    function setMin(e: ChangeEvent<HTMLInputElement>) {
-        setMinValue(Number(e.currentTarget.value))
+    function setMin(setCounterMinValue: number) {
+        setStartMinValue(setCounterMinValue)
     }
 
 
     function setMinMaxValueFromSetting() {
-        setMinValue(minValue);
-        setMaxValue(maxValue);
+        setMinValue(startMinValue);
+        setMaxValue(startMaxValue);
     }
 
-    let [value, setValue] = useState(minValue);
 
     function counterValue() {
-        if (value < maxValue) {
-            return setValue(value + 1)
-        } else return value
+        if (minValue < maxValue) { // value
+            return setMinValue(minValue + 1)
+        } else return setMinValue
     }
 
     function reset() {
-        setValue(minValue);
+        setMinValue(startMinValue);
     }
 
 
@@ -40,21 +44,20 @@ function App() {
         <div className={'general'}>
             <div className={'displayBlock'}>
                 <CounterSetings
-                    maxValue={maxValue}
-                    minValue={minValue}
+                    startMaxValue={startMaxValue}
+                    startMinValue={startMinValue}
                     setMinValue={setMin}
                     setMaxValue={setMax}
-                    value={value}
                     setMinMaxValueFromSetting={setMinMaxValueFromSetting}
                 />
             </div>
             <div className={'displayBlock'}>
                 <Counter
                     counterValue={counterValue}
-                    value={value}
                     reset={reset}
                     maxValue={maxValue}
                     minValue={minValue}
+                    setMinValue={startMinValue}
                 />
             </div>
         </div>

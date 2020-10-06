@@ -5,23 +5,24 @@ import MyButton from './Button';
 
 type CounterPropsType = {
     counterValue: () => void
-    value: number
     reset: () => void
     maxValue: number
     minValue: number
+    setMinValue: number
 }
 
 function Counter(props: CounterPropsType) {
 
-    const endButtonValue = (props.value>=props.maxValue)? "buttonOpacity":""
-    const resetButtonValue = (props.value ==props.minValue)? "buttonOpacity":""
+    const endButtonValue = (props.minValue>=props.maxValue)? "buttonOpacity":""
+    const resetButtonValue = (props.setMinValue === props.minValue)? "buttonOpacity":""
 
     return (
         <div>
             <div className={'display'}>
                 <Display
-                    value={props.value}
+                    value={props.minValue}
                     maxValue = {props.maxValue}
+                    minValue={props.minValue}
                 />
             </div>
             <div className={'buttons'}>
@@ -30,7 +31,7 @@ function Counter(props: CounterPropsType) {
                     name={'inc'}
                     action={props.counterValue}
                     maxValue = {props.maxValue}
-                    value={props.value}
+                    value={props.minValue}
                 />
                 </div>
                 <div className={resetButtonValue}>
@@ -38,7 +39,7 @@ function Counter(props: CounterPropsType) {
                     name={'reset'}
                     action={props.reset}
                     maxValue = {props.maxValue}
-                    value={props.value}
+                    value={props.minValue}
                 />
                 </div>
             </div>
