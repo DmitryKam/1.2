@@ -5,12 +5,17 @@ import MyButton from './components/MyButton';
 import DisplaySettings from './components/DisplaySettings';
 
 
+
 function App() {
 
-    const [minValue, setMinValue] = useState<number>(0);
-    const [maxValue, setMaxValue] = useState<number>(5);
-    const [inc, setInc] = useState<number>(0);
+     const maxStorage = localStorage.getItem('max');
+     const minStorage = localStorage.getItem('min');
+
+    const [minValue, setMinValue] = useState<number>(Number(minStorage));
+    const [maxValue, setMaxValue] = useState<number>(Number(maxStorage));
+    const [inc, setInc] = useState<number>(Number(minStorage));
     const [press, setPress] = useState<boolean>(true);
+
 
 
     function incCounter() {
@@ -29,6 +34,8 @@ function App() {
         setMinValue(minValue);
         setMaxValue(maxValue);
         setPress(true);
+        localStorage.setItem('max',String(maxValue));
+        localStorage.setItem('min',String(minValue));
         setInc(minValue);
     }
 
