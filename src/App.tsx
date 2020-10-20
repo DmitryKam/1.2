@@ -3,13 +3,14 @@ import './App.css';
 import Display from './components/Display';
 import MyButton from './components/MyButton';
 import DisplaySettings from './components/DisplaySettings';
+import {StorageService} from './components/storage';
 
 
 
 function App() {
 
-     const maxStorage = localStorage.getItem('max');
-     const minStorage = localStorage.getItem('min');
+     const maxStorage = StorageService.getItem('max');
+     const minStorage = StorageService.getItem('min');
 
     const [minValue, setMinValue] = useState<number>(Number(minStorage));
     const [maxValue, setMaxValue] = useState<number>(Number(maxStorage));
@@ -34,8 +35,8 @@ function App() {
         setMinValue(minValue);
         setMaxValue(maxValue);
         setPress(true);
-        localStorage.setItem('max',String(maxValue));
-        localStorage.setItem('min',String(minValue));
+        StorageService.setItem('max', maxValue)
+        StorageService.setItem('min', minValue)
         setInc(minValue);
     }
 
