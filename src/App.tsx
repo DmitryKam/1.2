@@ -4,53 +4,67 @@ import Display from './components/Display';
 import MyButton from './components/MyButton';
 import DisplaySettings from './components/DisplaySettings';
 import {StorageService} from './components/storage';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+    changeMaxValueAC,
+    changeMinValueAC,
+    CounterStateType,
+    incCounterAC,
+    resetValueAC,
+    setValuesAC
+} from './store/counter-reducer';
+import {RootStateType} from './store/store';
+
 
 
 
 function App() {
 
-     const maxStorage = StorageService.getItem('max');
-     const minStorage = StorageService.getItem('min');
 
-    const [minValue, setMinValue] = useState<number>(Number(minStorage));
-    const [maxValue, setMaxValue] = useState<number>(Number(maxStorage));
-    const [inc, setInc] = useState<number>(Number(minStorage));
-    const [press, setPress] = useState<boolean>(true);
+   //const maxStorage = StorageService.getItem('max');
+   //const minStorage = StorageService.getItem('min');
+   // const [minValue, setMinValue] = useState<number>(Number(minStorage));
+    //const [maxValue, setMaxValue] = useState<number>(Number(maxStorage));
 
+    let counter = useSelector<RootStateType, CounterStateType>(state => state.counter);
+    let dispatch = useDispatch();
+
+    const inc = counter.inc
+    const  maxValue = counter.maxValue
+    const minValue = counter.minValue
+    const press = counter.press
 
 
     function incCounter() {
-        if (inc < maxValue && press) {
-            setInc(inc + 1);
-        }
+        const action = incCounterAC();
+        dispatch(action);
     }
 
+
     function resetValue() {
-        if (press) {
-            setInc(minValue);
-        }
+        const action = resetValueAC();
+        dispatch(action);
+
     }
 
     function setValues() {
-        setMinValue(minValue);
-        setMaxValue(maxValue);
-        setPress(true);
-        StorageService.setItem('max', maxValue)
-        StorageService.setItem('min', minValue)
-        setInc(minValue);
+        const action = setValuesAC();
+        dispatch(action);
+
+       //  //StorageService.setItem('max', maxValue)
+       // // StorageService.setItem('min', minValue)
     }
 
     function changeMaxValue(maxValue: number) {
-        setMaxValue(maxValue)
-        setInc(0);
-        setPress(false);
+        const action = changeMaxValueAC(maxValue);
+        dispatch(action);
     }
 
     function changeMinValue(minValue: number) {
-        setMinValue(minValue)
-        setInc(0);
-        setPress(false);
+        const action = changeMinValueAC(minValue);
+        dispatch(action);
     }
+
 
 
     const endClass = inc >= maxValue
